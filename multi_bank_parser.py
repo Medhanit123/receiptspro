@@ -24,19 +24,18 @@ def detect_bank(pdf):
 def parse_pdf_by_bank(pdf):
     bank = detect_bank(pdf)
     if bank == "CIBC":
-        return parse_cibc(pdf)
+        return parse_cibc(pdf), f"✅ Parsed CIBC statement."
     elif bank == "TD":
-        return parse_td(pdf)
+        return parse_td(pdf), "ℹ️ TD parser not yet implemented."
     elif bank == "BMO":
-        return parse_bmo(pdf)
+        return parse_bmo(pdf), "ℹ️ BMO parser not yet implemented."
     elif bank == "Scotiabank":
-        return parse_scotiabank(pdf)
+        return parse_scotiabank(pdf), "ℹ️ Scotiabank parser not yet implemented."
     elif bank == "RBC":
-        return parse_rbc(pdf)
+        return parse_rbc(pdf), "ℹ️ RBC parser not yet implemented."
     else:
-        return pd.DataFrame(), "Unsupported bank or unrecognized format."
+        return pd.DataFrame(), "❌ Unsupported bank or unrecognized format."
 
-# Example stub parsers (only CIBC implemented so far)
 def parse_cibc(pdf):
     transactions = []
     with pdfplumber.open(pdf) as pdf_file:
@@ -57,19 +56,15 @@ def parse_cibc(pdf):
                         })
     return pd.DataFrame(transactions)
 
+# Empty stubs return blank DataFrames for now
 def parse_td(pdf):
-    # Placeholder for TD parser logic
     return pd.DataFrame()
 
 def parse_bmo(pdf):
-    # Placeholder for BMO parser logic
     return pd.DataFrame()
 
 def parse_scotiabank(pdf):
-    # Placeholder for Scotiabank parser logic
     return pd.DataFrame()
 
 def parse_rbc(pdf):
-    # Placeholder for RBC parser logic
     return pd.DataFrame()
-
