@@ -11,9 +11,10 @@ uploaded_file = st.file_uploader("Upload your bank statement PDF", type="pdf")
 
 if uploaded_file is not None:
     df, message = parse_pdf_by_bank(uploaded_file)
+    st.info(message)
 
     if df.empty:
-        st.warning(message)
+        st.warning("⚠️ No transactions could be extracted from this statement. This bank format may not be supported yet.")
     else:
         st.subheader("📝 Edit Your Transactions")
         edited_df = st.data_editor(df, num_rows="dynamic", use_container_width=True)
